@@ -1,28 +1,43 @@
-import java.util.Arrays;
+package chapter14;
+
 import java.util.Scanner;
 
 public class SelectionSortDemo {
     public static void main(String[] args) {
         Scanner consoleIn = new Scanner(System.in);
-        System.out.println("Array size: ");
-        int arraySize = consoleIn.nextInt();
+        System.out.print("Smallest sample:");
+        int smallestSample = consoleIn.nextInt();
+        System.out.print("Largest sample:");
+        int largestSample = consoleIn.nextInt();
         consoleIn.close();
 
-        int[] array = ArrayUtils.randomIntArray(arraySize, 100);
-        System.out.println("Initial Array: " + Arrays.toString(array));
-        StopWatch stopwatch = new StopWatch();
+        System.out.println(generateCharts(smallestSample, largestSample));
+    }
+
+    /**
+     * Time the algorithm and return milliseconds.
+     * 
+     * @param array
+     * @param stopwatch
+     * @return
+     */
+    public static long timeSorting(int[] array, StopWatch stopwatch) {
         stopwatch.start();
         SelectionSorter.sort(array);
         stopwatch.stop();
-        stopwatch.showElapsedTime();
-        System.out.println(Arrays.toString(array));
+        return stopwatch.getElapsedTime();
+    }
 
-        array = ArrayUtils.randomIntArray(arraySize, 100);
-        stopwatch.reset();
-        stopwatch.start();
-        SelectionSorter.descSort(array);
-        stopwatch.stop();
-        stopwatch.showElapsedTime();
-        System.out.println(Arrays.toString(array));
+    public static String generateCharts(int smallestSample, int largestSample) {
+        int[][] arrays = ArrayUtils.generateSampleArrays(smallestSample, largestSample);
+        StringBuilder result = new StringBuilder("n - milliseconds\n");
+
+        StopWatch stopwatch = new StopWatch();
+        for (int[] array : arrays) {
+            long timedSorting = timeSorting(array, stopwatch);
+            stopwatch.reset();
+            result.append(String.format("%d - %dms\n", array.length, timedSorting));
+        }
+        return result.toString();
     }
 }
