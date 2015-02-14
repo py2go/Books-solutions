@@ -1,3 +1,4 @@
+package chapter14;
 
 public class QuickSorter {
     public static void sort(int[] array) {
@@ -18,16 +19,18 @@ public class QuickSorter {
         int i = from - 1;
         int j = to + 1;
         while (i < j) {
-            i += 1;
+            i++;
             while (array[i] < pivot) {
-                i += 1;
+                i++;
             }
-            j -= 1;
+            j--;
             while (array[j] > pivot) {
-                j -= 1;
+                j--;
             }
             if (i < j) {
-                ArrayUtils.swap(array, i, j);
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
             }
         }
         return j;
