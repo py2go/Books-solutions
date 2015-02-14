@@ -10,4 +10,4 @@ Currently included:
 
 * [Python for Everyone, Horstmann(chapters 1-11)](http://horstmann.com/python4everyone.html)
 
-* [Big Java, Late Objects(chapters 1-10)](http://horstmann.com/bjlo.html)
+* [Big Java, Late Objects(chapters 1-16)](http://horstmann.com/bjlo.html)
