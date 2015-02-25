@@ -1,44 +1,44 @@
+package chapter14;
+
+import java.util.Arrays;
+
 public class StringMergeSorter {
     public static void sort(String[] array) {
         if (array.length <= 1) {
             return;
         }
-        String[] first = new String[array.length / 2];
-        String[] second = new String[array.length - first.length];
-        for (int i = 0; i < first.length; i++) {
-            first[i] = array[i];
-        }
-        for (int i = 0; i < second.length; i++) {
-            second[i] = array[first.length + i];
-        }
+        String[] first = Arrays.copyOfRange(array, 0, array.length / 2);
+        String[] second = Arrays.copyOfRange(array, first.length, array.length);
         sort(first);
         sort(second);
         merge(first, second, array);
     }
 
     private static void merge(String[] first, String[] second, String[] array) {
-        int nextFirstPos = 0;
-        int nextSecondPos = 0;
-        int nextMergedPos = 0;
-        while (nextFirstPos < first.length && nextSecondPos < second.length) {
-            if (first[nextFirstPos].compareTo(second[nextSecondPos]) < 0) {
-                array[nextMergedPos] = first[nextFirstPos];
-                nextFirstPos += 1;
+        int nextFirst = 0;
+        int nextSecond = 0;
+        int nextMerged = 0;
+
+        while (nextFirst < first.length || nextSecond < second.length) {
+            if (nextFirst >= first.length) {
+                array[nextMerged] = second[nextSecond];
+                nextSecond++;
+            } else if (nextSecond >= second.length) {
+                array[nextMerged] = first[nextFirst];
+                nextFirst++;
             } else {
-                array[nextMergedPos] = second[nextSecondPos];
-                nextSecondPos += 1;
+                String firstElement = first[nextFirst];
+                String secondElement = second[nextSecond];
+                int comparision = firstElement.compareTo(secondElement);
+                if (comparision < 0) {
+                    array[nextMerged] = firstElement;
+                    nextFirst++;
+                } else {
+                    array[nextMerged] = secondElement;
+                    nextSecond++;
+                }
             }
-            nextMergedPos += 1;
-        }
-        while (nextFirstPos < first.length) {
-            array[nextMergedPos] = first[nextFirstPos];
-            nextMergedPos += 1;
-            nextFirstPos += 1;
-        }
-        while (nextSecondPos < second.length) {
-            array[nextMergedPos] = second[nextSecondPos];
-            nextMergedPos += 1;
-            nextSecondPos += 1;
+            nextMerged++;
         }
     }
 }
