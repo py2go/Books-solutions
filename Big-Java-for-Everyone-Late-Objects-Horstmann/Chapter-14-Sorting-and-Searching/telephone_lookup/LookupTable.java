@@ -52,6 +52,7 @@ public class LookupTable {
         }
         Arrays.sort(this.names);
         Arrays.sort(this.numbers);
+        this.isSorted = true;
     }
 
     private boolean isValidName(String input) {
