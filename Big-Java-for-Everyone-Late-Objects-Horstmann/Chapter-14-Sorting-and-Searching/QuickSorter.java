@@ -1,5 +1,6 @@
 package chapter14;
 
+
 public class QuickSorter {
     public static void sort(int[] array) {
         sort(array, 0, array.length - 1);
@@ -16,14 +17,12 @@ public class QuickSorter {
 
     private static int partition(int[] array, int from, int to) {
         int pivot = array[from];
-        int i = from - 1;
-        int j = to + 1;
+        int i = from;
+        int j = to;
         while (i < j) {
-            i++;
             while (array[i] < pivot) {
                 i++;
             }
-            j--;
             while (array[j] > pivot) {
                 j--;
             }
